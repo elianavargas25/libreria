@@ -9,6 +9,6 @@ package entidad;
  *
  * @author eliana.vargas
  */
-public class autor_libro {
+public class AutorLibro {
     
 }

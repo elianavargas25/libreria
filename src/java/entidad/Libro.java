@@ -9,6 +9,6 @@ package entidad;
  *
  * @author eliana.vargas
  */
-public class autor {
-    
+public class Libro {
+    String idLibro;
 }
