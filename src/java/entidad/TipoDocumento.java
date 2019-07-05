@@ -7,24 +7,24 @@ package entidad;
 
 /**
  *
- * @author eliana.vargas
+ * @author ELIANA
  */
-public class Categoria {
+public class TipoDocumento {
 
-    private String idCategoria;
+    private String idTipoDocumento;
     private String descripcion;
 
-    public Categoria(String idCategoria, String descripcion) {
-        this.idCategoria = idCategoria;
+    public TipoDocumento(String idTipoDocumento, String descripcion) {
+        this.idTipoDocumento = idTipoDocumento;
         this.descripcion = descripcion;
     }
 
-    public String getIdCategoria() {
-        return idCategoria;
+    public String getIdTipoDocumento() {
+        return idTipoDocumento;
     }
 
-    public void setIdCategoria(String idCategoria) {
-        this.idCategoria = idCategoria;
+    public void setIdTipoDocumento(String idTipoDocumento) {
+        this.idTipoDocumento = idTipoDocumento;
     }
 
     public String getDescripcion() {

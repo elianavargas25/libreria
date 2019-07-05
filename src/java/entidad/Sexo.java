@@ -7,24 +7,24 @@ package entidad;
 
 /**
  *
- * @author eliana.vargas
+ * @author ELIANA
  */
-public class Categoria {
+public class Sexo {
 
-    private String idCategoria;
+    private String idSexo;
     private String descripcion;
 
-    public Categoria(String idCategoria, String descripcion) {
-        this.idCategoria = idCategoria;
+    public Sexo(String idSexo, String descripcion) {
+        this.idSexo = idSexo;
         this.descripcion = descripcion;
     }
 
-    public String getIdCategoria() {
-        return idCategoria;
+    public String getIdSexo() {
+        return idSexo;
     }
 
-    public void setIdCategoria(String idCategoria) {
-        this.idCategoria = idCategoria;
+    public void setIdSexo(String idSexo) {
+        this.idSexo = idSexo;
     }
 
     public String getDescripcion() {
