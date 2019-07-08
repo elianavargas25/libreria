@@ -29,4 +29,8 @@ public class Manager {
      public List<Libro> buscarLibros(Categoria categoria) {
         return daoLib.listLibros(categoria);
     }//fin buscar
+     
+     public Ventas registrarVentas(Ventas venta){
+     return venta;
+     }
 }
