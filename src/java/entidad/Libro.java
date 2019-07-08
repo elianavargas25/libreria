@@ -18,9 +18,12 @@ public class Libro {
     private String nroPaginas;
     private String anioPublicacion;
     private String valor;
-
     private Ubicacion ubicacion;
 
+    public Libro() {
+    }
+
+    
     public Libro(String idLibro, String nombreLibro, Categoria categoria, Editorial editorial, String nroPaginas, String anioPublicacion, String valor, Ubicacion ubicacion) {
         this.idLibro = idLibro;
         this.nombreLibro = nombreLibro;

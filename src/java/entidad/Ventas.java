@@ -18,6 +18,11 @@ public class Ventas {
     private Date fechaVenta;
     private String total;
 
+    public Ventas() {
+    }
+    
+    
+
     public Ventas(String idVenta, Cliente cliente, Date fechaVenta, String total) {
         this.idVenta = idVenta;
         this.cliente = cliente;
