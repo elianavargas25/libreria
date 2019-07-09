@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class conexion {
+public class Conexion {
 
     private static Connection conn;
 
@@ -19,21 +19,28 @@ public class conexion {
                 String servidor = "jdbc:oracle:thin:@" + "127.0.0.1" + ":" + "1521" + ":" + "XE";
                 conn = DriverManager.getConnection(servidor, "US_BIBLIOTECA", "123");
             } catch (SQLException ex) {
-                Logger.getLogger(conexion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(conexion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InstantiationException ex) {
-                Logger.getLogger(conexion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IllegalAccessException ex) {
-                Logger.getLogger(conexion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return conn;
     }
+    
+    public static void close(Connection conn) {
+        try {
+            conn.close();
+        } catch (Exception e) {
+        }
+    }
 
     public static void main(String[] args) {
 
-        Connection conn = conexion.getInstance();
+        Connection conn = Conexion.getInstance();
         try {
             PreparedStatement ObjState = conn.prepareCall("SELECT * FROM SEXOS");
             ResultSet ObjResult = ObjState.executeQuery();
@@ -47,7 +54,7 @@ public class conexion {
             try {
                 conn.close();
             } catch (SQLException ex) {
-                Logger.getLogger(conexion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 

@@ -5,7 +5,10 @@
  */
 package entidad;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javafx.scene.shape.Line;
 
 /**
  *
@@ -17,11 +20,10 @@ public class Ventas {
     private Cliente cliente;
     private Date fechaVenta;
     private String total;
+    private List<VentasLibros> listVentas;
 
     public Ventas() {
     }
-    
-    
 
     public Ventas(String idVenta, Cliente cliente, Date fechaVenta, String total) {
         this.idVenta = idVenta;
@@ -47,6 +49,9 @@ public class Ventas {
     }
 
     public Cliente getCliente() {
+        if(cliente == null){
+            cliente = new Cliente();
+        }
         return cliente;
     }
 
@@ -60,6 +65,17 @@ public class Ventas {
 
     public void setFechaVenta(Date fechaVenta) {
         this.fechaVenta = fechaVenta;
+    }
+
+    public List<VentasLibros> getListVentas() {
+        if (listVentas == null) {
+            listVentas = new ArrayList<VentasLibros>();
+        }
+        return listVentas;
+    }
+
+    public void setListVentas(List<VentasLibros> listVentas) {
+        this.listVentas = listVentas;
     }
 
 }

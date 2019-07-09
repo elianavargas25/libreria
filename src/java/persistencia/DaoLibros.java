@@ -17,7 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import utilidades.conexion;
+import utilidades.Conexion;
 
 /**
  *
@@ -25,10 +25,17 @@ import utilidades.conexion;
  */
 public class DaoLibros {
 
-    Connection conn = conexion.getInstance();
-    Libro libro = new Libro();
+    private Connection conn;
 
-    public Libro saveLibro(Libro libro) {//validar conexion
+    public DaoLibros() {
+        conn = Conexion.getInstance();
+    }
+
+    public DaoLibros(Connection conn) {
+        this.conn = conn;
+    }
+
+    public Libro saveLibro(Libro libro) {//validar Conexion
         String mensaje = "";
         try {
             PreparedStatement lib = conn.prepareStatement(SqlLibros.insert());
@@ -72,6 +79,7 @@ public class DaoLibros {
     }//cierra guardar
 
     public Libro getLibros(String categoria) {
+        Libro libro = new Libro();
         try {
             PreparedStatement stm = conn.prepareStatement(SqlLibros.getLibrosByCategoria());
             stm.setString(1, categoria);
@@ -106,16 +114,18 @@ public class DaoLibros {
         return libro;
     }
 
-    public List<Libro> listLibros(Categoria categoria) {
+    public List<Libro> listLibros(String categoria) {
         List<Libro> result = new ArrayList<>();
         try {
             PreparedStatement lista = conn.prepareStatement(SqlLibros.getLibrosByCategoria());
+            lista.setString(1, categoria);
             ResultSet respuesta = lista.executeQuery();
             while (respuesta.next()) {
                 Libro paramet = new Libro();
                 paramet.setIdLibro(respuesta.getString(1));
                 paramet.setNombreLibro(respuesta.getString(1));
-                paramet.setCategoria((Categoria) respuesta.getObject(1));
+                
+                paramet.setCategoria(new Categoria(respuesta.getString(2), respuesta.getString(3)));
                 paramet.setEditorial((Editorial) respuesta.getObject(1));
                 paramet.setNroPaginas(respuesta.getString(2));
                 paramet.setAnioPublicacion(respuesta.getString(2));

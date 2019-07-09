@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import utilidades.conexion;
+import utilidades.Conexion;
 
 /**
  *
@@ -19,7 +19,7 @@ import utilidades.conexion;
  */
 public class DaoCategorias {
     public ResultSet Categori() {
-        Connection conn = conexion.getInstance();
+        Connection conn = Conexion.getInstance();
        
         PreparedStatement stTD;
         try {

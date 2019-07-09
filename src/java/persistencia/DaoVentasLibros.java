@@ -11,7 +11,7 @@ import entidad.VentasLibros;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import utilidades.conexion;
+import utilidades.Conexion;
 
 /**
  *
@@ -19,9 +19,17 @@ import utilidades.conexion;
  */
 public class DaoVentasLibros {
     
-    Connection conn = conexion.getInstance();
+    private Connection conn ;
+    
+    public DaoVentasLibros(){
+            conn = Conexion.getInstance();
+    }
+    
+    public DaoVentasLibros(Connection conn){
+            this.conn = conn;
+    }
 
-    public VentasLibros saveVentas(VentasLibros ventaLibros) {//validar conexion
+    public VentasLibros saveVentas(VentasLibros ventaLibros) {//validar Conexion
         String mensaje = "";
         try {
             PreparedStatement vent = conn.prepareStatement(SqlVentas.insert());

@@ -10,7 +10,7 @@ import entidad.Ventas;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import utilidades.conexion;
+import utilidades.Conexion;
 
 /**
  *
@@ -18,11 +18,19 @@ import utilidades.conexion;
  */
 public class DaoVentas {
 
-    Connection conn = conexion.getInstance();
-    Ventas ventas = new Ventas();
+      private Connection conn;
 
-    public Ventas saveVentas(Ventas venta) {//validar conexion
+    public DaoVentas() {
+        conn = Conexion.getInstance();
+    }
+
+    public DaoVentas(Connection conn) {
+        this.conn = conn;
+    }
+
+    public boolean saveVentas(Ventas venta) {//validar Conexion
         String mensaje = "";
+        boolean _result = false;
         try {
             PreparedStatement vent = conn.prepareStatement(SqlVentas.insert());
             String consecutivo = null;
@@ -34,10 +42,11 @@ public class DaoVentas {
             if (resultado.next()) {
                 consecutivo = resultado.getString("value");
             }
+            venta.setIdVenta(consecutivo);
 
             int index = 1;
-
-            vent.setString(index++, consecutivo);
+            
+            vent.setString(index++, venta.getIdVenta());
             vent.setObject(index++, venta.getCliente().getNroDocumento());
             vent.setDate(index++, new java.sql.Date(new java.util.Date().getTime()));
             vent.setString(index++, venta.getTotal());
@@ -46,18 +55,21 @@ public class DaoVentas {
             System.out.println("Registro de Ventas exitoso...\n");
             if (vent.getUpdateCount() > 0) {
                 mensaje = "La Venta se registró correctamente";
+                _result = true;
             } else {
                 mensaje = "Error al registrar Ventas";
+               
             }
         } catch (Exception e) {
             System.out.println("Error al registrar ventas");
             e.printStackTrace();
+            
         } finally {
             try {
             } catch (Exception e) {
             }
         }//cierra finally
-        return venta;
+        return _result;
     }//cierra guardar
 
 }

@@ -5,19 +5,30 @@
  */
 package servlet;
 
+import entidad.Cliente;
+import entidad.Ventas;
+import entidad.VentasLibros;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import manager.Manager;
 
 /**
  *
  * @author ELIANA
  */
 public class MaestroVentas extends HttpServlet {
-
+    Manager manager = new Manager();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -28,20 +39,44 @@ public class MaestroVentas extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet MaestroVentas</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet MaestroVentas at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        Ventas venta = new Ventas();
+        venta.setCliente(new Cliente(request.getParameter("txtNroDoc")));
+        String fecha = request.getParameter("txtFechaVenta");
+        DateFormat format = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+        Date FechaVenta = format.parse(fecha);
+        venta.setFechaVenta(FechaVenta);
+        venta.setTotal(request.getParameter("txtTotal"));
+        //venta.getListVentas().add(request.)
+        venta.setCliente(new Cliente(request.getParameter("txtprimernombre")));
+        
+        
+        String mensaje = "";
+        String modulo = "RegistrarVentas.jsp"; // validar con la vista
+
+        //request.setAttribute("mensaje", null);
+        request.setAttribute("modulo", null);
+        request.setAttribute("datos", null);
+        
+        if ("Guardar".equals(request.getParameter("action"))) {
+           
+//                    try {
+//                        venta.setCliente(cliente);
+//                        venta.setIdEmpresa(idEmpresa);
+//                        venta.setReproduccion(reprod);
+//                        
+//                        //se guarda los datos en la tabla
+//                        manager.registrarVentas(venta);
+//                        mensaje = "El informe de las ventas se registró correctamente";
+//                    } catch (Exception e2) {
+//                        mensaje = "Error en el registro de informe de ventas, favor verificar";
+//                        limpiar();
+//                    }
+                }//fin guardar
+        request.setAttribute("mensaje", mensaje);
+        request.getRequestDispatcher(modulo).forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -56,7 +91,11 @@ public class MaestroVentas extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(MaestroVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -70,7 +109,11 @@ public class MaestroVentas extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(MaestroVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

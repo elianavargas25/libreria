@@ -25,6 +25,13 @@ public class Cliente {
     private String email;
     private Profesion prefesion;
 
+    public Cliente() {
+    }
+
+    public Cliente(String nroDocumento) {
+        this.nroDocumento = nroDocumento;
+    }
+
     public Cliente(String nroDocumento, TipoDocumento tipoDocumento, String nombre, String pApelliido, String sApelliido, Sexo sexo, Date fechaNacimiento, String direccion, String telefono, String email, Profesion prefesion) {
         this.nroDocumento = nroDocumento;
         this.tipoDocumento = tipoDocumento;

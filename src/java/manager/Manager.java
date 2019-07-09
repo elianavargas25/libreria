@@ -10,27 +10,42 @@ import persistencia.DaoVentas;
 import entidad.Categoria;
 import entidad.Libro;
 import entidad.Ventas;
+import entidad.VentasLibros;
+import java.sql.Connection;
 import java.util.List;
+import persistencia.DaoVentasLibros;
+import utilidades.Conexion;
 
 /**
  *
  * @author ELIANA
  */
 public class Manager {
-    
-    DaoVentas  daoVen;
+
+    DaoVentas daoVen;
     DaoLibros daoLib;
-    
-    public  Manager(){
-    daoLib = new DaoLibros();
-    daoVen = new DaoVentas();
+    DaoVentasLibros daoVenLib;
+
+    public Manager() {
+        daoLib = new DaoLibros();
+        daoVen = new DaoVentas();
+        daoVenLib = new DaoVentasLibros();
     }
-    
-     public List<Libro> buscarLibros(Categoria categoria) {
+
+    public List<Libro> buscarLibros(String categoria) {
         return daoLib.listLibros(categoria);
     }//fin buscar
-     
-     public Ventas registrarVentas(Ventas venta){
-     return venta;
-     }
+
+    public Ventas registrarVentas(Ventas venta) {
+        Connection conn = Conexion.getInstance();
+        daoVen = new DaoVentas(conn);
+        daoLib = new DaoLibros(conn);
+        daoVen.saveVentas(venta);
+        for (VentasLibros listVenta : venta.getListVentas()) {
+            listVenta.setVentas(venta);
+            daoVenLib.saveVentas(listVenta);
+        }
+        Conexion.close(conn);
+        return venta;
+    }
 }
