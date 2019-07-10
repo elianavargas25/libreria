@@ -13,6 +13,7 @@ import entidad.Ventas;
 import entidad.VentasLibros;
 import java.sql.Connection;
 import java.util.List;
+import persistencia.DaoCategorias;
 import persistencia.DaoVentasLibros;
 import utilidades.Conexion;
 
@@ -25,11 +26,13 @@ public class Manager {
     DaoVentas daoVen;
     DaoLibros daoLib;
     DaoVentasLibros daoVenLib;
+    DaoCategorias daoCat;
 
     public Manager() {
         daoLib = new DaoLibros();
         daoVen = new DaoVentas();
         daoVenLib = new DaoVentasLibros();
+        daoCat = new  DaoCategorias();
     }
 
     public List<Libro> buscarLibros(String categoria) {
@@ -48,4 +51,8 @@ public class Manager {
         Conexion.close(conn);
         return venta;
     }
+    
+    public List<Categoria> listarCategorias() {
+        return daoCat.listCategoria();
+    }//fin public lista
 }
