@@ -7,6 +7,8 @@ package persistencia;
 
 import Sql.SqlLibros;
 import Sql.SqlVentas;
+import entidad.Autor;
+import entidad.AutorLibro;
 import entidad.Categoria;
 import entidad.Editorial;
 import entidad.Libro;
@@ -81,7 +83,7 @@ public class DaoLibros {
     public Libro getLibros(String categoria) {
         Libro libro = new Libro();
         try {
-            PreparedStatement stm = conn.prepareStatement(SqlLibros.getLibrosByCategoria());
+            PreparedStatement stm = conn.prepareStatement(SqlLibros.getLibrosByCategoria(categoria));
             stm.setString(1, categoria);
             ResultSet rs = stm.executeQuery();
 
@@ -115,21 +117,23 @@ public class DaoLibros {
     }
 
     public List<Libro> listLibros(String categoria) {
+        categoria ="44";
         List<Libro> result = new ArrayList<>();
         try {
-            PreparedStatement lista = conn.prepareStatement(SqlLibros.getLibrosByCategoria());
+            PreparedStatement lista = conn.prepareStatement(SqlLibros.getLibrosByCategoria(categoria));
             lista.setString(1, categoria);
             ResultSet respuesta = lista.executeQuery();
             while (respuesta.next()) {
                 Libro paramet = new Libro();
-                paramet.setIdLibro(respuesta.getString(1));
-                paramet.setNombreLibro(respuesta.getString(1));
-                
-                paramet.setCategoria(new Categoria(respuesta.getString(2), respuesta.getString(3)));
-                paramet.setEditorial((Editorial) respuesta.getObject(1));
-                paramet.setNroPaginas(respuesta.getString(2));
-                paramet.setAnioPublicacion(respuesta.getString(2));
-                paramet.setValor(respuesta.getString(3));
+                paramet.setIdLibro(respuesta.getString("ID_LIBROS"));
+                paramet.setNombreLibro(respuesta.getString("NOMBRE_LIBRO"));
+                paramet.setCategoria(new Categoria(respuesta.getString("ID_CATEGORIA"), respuesta.getString("DESCRIPCION")));
+                paramet.setEditorial(new Editorial(respuesta.getString("ID_EDITORIAL"), respuesta.getString("NOMBRE_EDITORIAL")));
+                paramet.setNroPaginas(respuesta.getString("NRO_PAGINAS"));
+                paramet.setAnioPublicacion(respuesta.getString("ANIO_PUBLICACION"));
+                paramet.setUbicacion(new Ubicacion(respuesta.getString("ID_UBICACION"), respuesta.getString("NOMBRE_UBICACION")));
+                paramet.setValor(respuesta.getString("VALOR"));
+                paramet.setAutor(new AutorLibro(new Autor(respuesta.getString("ID_AUTOR"), respuesta.getString("NOMBRE_COMPLETO"), respuesta.getString("PAIS_NAC")), new Libro()));
                 result.add(paramet);
             }//fin while
         } catch (Exception e) {

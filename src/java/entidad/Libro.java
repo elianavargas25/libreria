@@ -19,6 +19,8 @@ public class Libro {
     private String anioPublicacion;
     private String valor;
     private Ubicacion ubicacion;
+    private AutorLibro autor;
+    
 
     public Libro() {
     }
@@ -97,6 +99,14 @@ public class Libro {
 
     public void setEditorial(Editorial editorial) {
         this.editorial = editorial;
+    }
+
+    public AutorLibro getAutor() {
+        return autor;
+    }
+
+    public void setAutor(AutorLibro autor) {
+        this.autor = autor;
     }
 
 }
