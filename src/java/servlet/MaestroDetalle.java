@@ -5,24 +5,27 @@
  */
 package servlet;
 
-import entidad.Libro;
+import entidad.Cliente;
+import entidad.Ventas;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.DateFormat;
 import java.text.ParseException;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import manager.Manager;
 
 /**
  *
- * @author ELIANA
+ * @author eliana.vargas
  */
-public class MaestroVentas extends HttpServlet {
-    Manager manager = new Manager();
+public class MaestroDetalle extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,6 +38,16 @@ public class MaestroVentas extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
+           Ventas venta = new Ventas();
+        venta.setCliente(new Cliente(request.getParameter("txtNroDoc")));
+        String fecha = request.getParameter("txtFechaVenta");
+        DateFormat format = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+        Date FechaVenta = format.parse(fecha);
+        venta.setFechaVenta(FechaVenta);
+        venta.setTotal(request.getParameter("txtTotal"));
+        //venta.getListVentas().add(request.)
+        venta.setCliente(new Cliente(request.getParameter("txtprimernombre")));
+        
         
         String mensaje = "";
         String modulo = "list-shop.jsp"; // validar con la vista
@@ -58,20 +71,6 @@ public class MaestroVentas extends HttpServlet {
 //                        limpiar();
 //                    }
                 }//fin guardar
-        if ("Consultar".equals(request.getParameter("action"))) {
-            String categoria = request.getParameter("categoria");
-            try {
-                    List<Libro> listaLibros = manager.listarLibros(categoria);
-                    request.setAttribute("listaLibros", listaLibros);
-                
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } //cierra buscar
-        
-        request.setAttribute("mensaje", mensaje);
-        request.getRequestDispatcher(modulo).forward(request, response);
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -89,7 +88,7 @@ public class MaestroVentas extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ParseException ex) {
-            Logger.getLogger(MaestroVentas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MaestroDetalle.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -107,7 +106,7 @@ public class MaestroVentas extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ParseException ex) {
-            Logger.getLogger(MaestroVentas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MaestroDetalle.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

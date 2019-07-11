@@ -23,6 +23,10 @@ public class VentasLibros {
         this.valor = valor;
     }
 
+    public VentasLibros() {
+    }
+    
+
     public String getValor() {
         return valor;
     }

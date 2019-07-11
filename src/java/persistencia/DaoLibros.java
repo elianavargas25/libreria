@@ -117,7 +117,7 @@ public class DaoLibros {
     }
 
     public List<Libro> listLibros(String categoria) {
-        categoria ="44";
+       // categoria ="44";
         List<Libro> result = new ArrayList<>();
         try {
             PreparedStatement lista = conn.prepareStatement(SqlLibros.getLibrosByCategoria(categoria));

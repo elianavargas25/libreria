@@ -35,7 +35,7 @@ public class Manager {
         daoCat = new  DaoCategorias();
     }
 
-    public List<Libro> buscarLibros(String categoria) {
+    public List<Libro> listarLibros(String categoria) {
         return daoLib.listLibros(categoria);
     }//fin buscar
 

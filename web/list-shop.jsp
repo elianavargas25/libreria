@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="persistencia.DaoCategorias"%>
 <%@page import="entidad.Categoria"%>
 <%@page import="manager.Manager"%>
@@ -7,9 +8,7 @@
 <!doctype html>
 <%
     Manager manager = new Manager();
-    String idCategoria = "";
-    List<Libro> listaLibros = manager.buscarLibros(idCategoria);
-    //request.setAttribute("lista", listaLibros);
+    List<Libro> listaLibros = request.getAttribute("listaLibros") != null ? (List<Libro>) request.getAttribute("listaLibros") : new ArrayList<Libro>();
 
     List<Categoria> listaCategorias = manager.listarCategorias();
     //request.setAttribute("lista", listaCategorias);
@@ -46,6 +45,7 @@
         <link rel="stylesheet" type="text/css" href="style.css" media="all" />
         <!------Colors Of site.---->
         <link rel="stylesheet" type="text/css" href="css/default-colors.css" media="all" />
+
     </head>
     <body>
         <!--Top Bar Starts here-->
@@ -120,8 +120,9 @@
             <!--Navigation Code Ends here--->
         </div>
         <!-------------Content Area----------------->
-        <form name="ventaLibros" method="Post" id="Venta"
+        <form name="ventaLibros" method="Post" id="VentaForm"
               action="./MaestroVentas" autocomplete="off" class="bod">
+            <input type="hidden" name="action" id="action"> 
             <div class="content-area">
                 <div class="row">
                     <div class="medium-9 medium-push-3 small-12 columns">
@@ -188,7 +189,7 @@
                         <div class="widget">
                             <h2>Categorias</h2>
 
-                            <select class="menu vertical" id = "idCategoria" name="categoria">
+                            <select class="menu vertical" id = "idCategoria" name="categoria" onchange="$('#action').val('Consultar'); $('#VentaForm').submit();">
                                 <option value="0" disabled selected="true">Seleccione</option>
                                 <%for (Categoria cat : listaCategorias) {%>
                                 <option value=<%=cat.getIdCategoria()%>><%=cat.getDescripcion()%></option>
@@ -201,7 +202,6 @@
         </form>>
         <!----------------Footer Ends here---------------->
         <a href="# top" id="top" class="animated fadeInUp start-anim"><i class="fa fa-angle-up"></i></a>
-
         <script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
         <script type="text/javascript" src="js/foundation.min.js"></script>
         <!--Crousel JS-->
@@ -210,6 +210,5 @@
         <script src="js/swiper.min.js"></script>
         <!-- Webful JS -->
         <script src="js/webful.js"></script>
-
     </body>
 </html>

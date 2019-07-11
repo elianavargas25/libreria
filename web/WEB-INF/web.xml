@@ -4,9 +4,17 @@
         <servlet-name>MaestroVentas</servlet-name>
         <servlet-class>servlet.MaestroVentas</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MaestroDetalle</servlet-name>
+        <servlet-class>servlet.MaestroDetalle</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MaestroVentas</servlet-name>
         <url-pattern>/MaestroVentas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MaestroDetalle</servlet-name>
+        <url-pattern>/MaestroDetalle</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
