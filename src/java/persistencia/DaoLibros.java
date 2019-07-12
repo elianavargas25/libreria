@@ -80,43 +80,30 @@ public class DaoLibros {
         return libro;
     }//cierra guardar
 
-    public Libro getLibros(String categoria) {
-        Libro libro = new Libro();
+    public List<Libro> getLibros(String idLibro) {
+       List<Libro> result = new ArrayList<>();
         try {
-            PreparedStatement stm = conn.prepareStatement(SqlLibros.getLibrosByCategoria(categoria));
-            stm.setString(1, categoria);
-            ResultSet rs = stm.executeQuery();
-
-            if (!rs.next()) {                            //if rs.next() returns false
-                //then there are no rows.
-                System.out.println("No records found");
-                return null;
-            } else {
-                do {
-                    libro.setIdLibro(rs.getString(1));
-                    libro.setNombreLibro(rs.getString(2));
-                    libro.setCategoria((Categoria) rs.getObject(3));
-                    libro.setEditorial((Editorial) rs.getObject(4));
-                    libro.setNroPaginas(rs.getString(5));
-                    libro.setAnioPublicacion(rs.getString(6));
-                    libro.setUbicacion((Ubicacion) rs.getObject(7));
-                    libro.setValor(rs.getString(8));
-                    System.out.println("Busqueda exitosa..");
-                    return libro;
-                } while (rs.next());
-            }
+            PreparedStatement lista = conn.prepareStatement(SqlLibros.getLibrosByID(idLibro));
+            lista.setString(1, idLibro);
+            ResultSet respuesta = lista.executeQuery();
+            while (respuesta.next()) {
+                Libro paramet = new Libro();
+                paramet.setIdLibro(respuesta.getString("ID_LIBROS"));
+                paramet.setNombreLibro(respuesta.getString("NOMBRE_LIBRO"));
+                paramet.setValor(respuesta.getString("VALOR"));
+                result.add(paramet);
+            }//fin while
         } catch (Exception e) {
-            System.out.println("Error al buscar los libros...\n");
-            e.getMessage();
+            e.printStackTrace();
         } finally {
             try {
             } catch (Exception e) {
-            }
-        }//cierra finally
-        return libro;
+            }//fin try/catch
+        }//fin try/catch/finall
+        return result;
     }
 
-    public List<Libro> listLibros(String categoria) {
+    public List<Libro> listLibrosByCategoria(String categoria) {
        // categoria ="44";
         List<Libro> result = new ArrayList<>();
         try {

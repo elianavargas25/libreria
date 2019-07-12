@@ -43,21 +43,18 @@ public class MaestroVentas extends HttpServlet {
         request.setAttribute("modulo", null);
         request.setAttribute("datos", null);
         
-        if ("Guardar".equals(request.getParameter("action"))) {
-           
-//                    try {
-//                        venta.setCliente(cliente);
-//                        venta.setIdEmpresa(idEmpresa);
-//                        venta.setReproduccion(reprod);
-//                        
-//                        //se guarda los datos en la tabla
-//                        manager.registrarVentas(venta);
-//                        mensaje = "El informe de las ventas se registró correctamente";
-//                    } catch (Exception e2) {
-//                        mensaje = "Error en el registro de informe de ventas, favor verificar";
-//                        limpiar();
-//                    }
-                }//fin guardar
+        if("AdicionarLista".equals(request.getParameter("action"))){
+            String idLibro = request.getParameter("categoria");
+            try {
+                    List<Libro> listaLibros = manager.listarLibros(idLibro);
+                    request.setAttribute("listaLibros", listaLibros);
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        
+        }
+        
         if ("Consultar".equals(request.getParameter("action"))) {
             String categoria = request.getParameter("categoria");
             try {

@@ -33,4 +33,9 @@ public class SqlLibros {
                 + "WHERE CAT.ID_CATEGORIA = ?";
     }
 
+    public static String getLibrosByID(String idLibros) {
+        return "SELECT LIB.ID_LIBROS,  LIB.NOMBRE_LIBRO,  LIB.VALOR\n"
+                + "FROM LIBROS LIB WHERE LIB.ID_LIBROS = ?";
+    }
+
 }
