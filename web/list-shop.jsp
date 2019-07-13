@@ -153,15 +153,16 @@
                                     </div>
 
                                     <div class="product-info medium-8 small-12 columns">
-                                        <h6><a href="single-product.html"><%=lib.getNombreLibro()%></a></h6>
+                                        <h6><a><%=lib.getNombreLibro()%></a></h6>
                                         <div class="price">
                                             <span class="normal">Precio $<%=lib.getValor()%></span>
                                             <div class="clearfix"></div>
                                         </div> 
-                                        <p>Nro de páginas <%=lib.getNroPaginas()%></p>
+                                        <h4><p>Nro de páginas <%=lib.getNroPaginas()%></p></h4>
                                         <p>Autor <%=lib.getAutor().getAutor().getNombreAutor()%></p>
+                                        <p>Ubicación <%=lib.getUbicacion().getNombreUbicacion()%></p>
                                         <ul class="menu product-options">
-                                            <li><a value="<%=lib.getIdLibro()%>" class="button">Agregar al carrito</a></li>
+                                            <li><a id="" type="submit" name="" value="<%=lib.getIdLibro()%>" class="button">Agregar al carrito</a></li>
                                         </ul>
 
                                     </div>

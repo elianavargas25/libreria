@@ -36,8 +36,12 @@ public class Manager {
     }
 
     public List<Libro> listarLibros(String categoria) {
-        return daoLib.listLibros(categoria);
+        return daoLib.listLibrosByCategoria(categoria);
     }//fin buscar
+    
+    public List<Libro> getLibros(String idLibros) {
+        return daoLib.getLibros(idLibros);
+    }
 
     public Ventas registrarVentas(Ventas venta) {
         Connection conn = Conexion.getInstance();
