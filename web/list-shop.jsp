@@ -9,7 +9,7 @@
 <%
     Manager manager = new Manager();
     List<Libro> listaLibros = request.getAttribute("listaLibros") != null ? (List<Libro>) request.getAttribute("listaLibros") : new ArrayList<Libro>();
-   
+
     List<Categoria> listaCategorias = manager.listarCategorias();
     //request.setAttribute("lista", listaCategorias);
 %>
@@ -162,7 +162,8 @@
                                         <p>Autor <%=lib.getAutor().getAutor().getNombreAutor()%></p>
                                         <p>Ubicación <%=lib.getUbicacion().getNombreUbicacion()%></p>
                                         <ul class="menu product-options">
-                                            <li><button class="button" id="AdicionarLista" name="Listar" value="AdicionarLista">Agregar al carrito</button></li>
+                                            <li><input type="submit" class="button" id="<%=lib.getIdLibro()%>" name="idLibro" value="AdicionarLista" onchange="$('#action').val('AdicionarLista');
+                                                    $('#VentaForm').submit();"></li>
                                         </ul>
                                     </div>
                                     <div class="clearfix"></div>
