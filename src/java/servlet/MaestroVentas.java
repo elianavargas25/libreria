@@ -40,14 +40,17 @@ public class MaestroVentas extends HttpServlet {
         String modulo = "list-shop.jsp"; // validar con la vista
 
         //request.setAttribute("mensaje", null);
+        request.setAttribute("listaLibros", null);
+        request.setAttribute("listaLibrosByCategoria", null);
         request.setAttribute("modulo", null);
         request.setAttribute("datos", null);
         
         if("AdicionarLista".equals(request.getParameter("action"))){
-            String idLibro = request.getParameter("categoria");
+            String idLibro = request.getParameter("idLibro");
             try {
                     List<Libro> listaLibros = manager.listarLibros(idLibro);
                     request.setAttribute("listaLibros", listaLibros);
+                    request.getSession(true).setAttribute("listaLibrosByCategoria", listaLibros);
                 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -60,6 +63,7 @@ public class MaestroVentas extends HttpServlet {
             try {
                     List<Libro> listaLibros = manager.listarLibros(categoria);
                     request.setAttribute("listaLibros", listaLibros);
+                    request.getSession(true).setAttribute("listaLibros", listaLibros);
                 
             } catch (Exception e) {
                 e.printStackTrace();

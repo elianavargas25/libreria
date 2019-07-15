@@ -9,7 +9,7 @@
 <%
     Manager manager = new Manager();
     List<Libro> listaLibros = request.getAttribute("listaLibros") != null ? (List<Libro>) request.getAttribute("listaLibros") : new ArrayList<Libro>();
-
+   
     List<Categoria> listaCategorias = manager.listarCategorias();
     //request.setAttribute("lista", listaCategorias);
 %>
@@ -162,9 +162,8 @@
                                         <p>Autor <%=lib.getAutor().getAutor().getNombreAutor()%></p>
                                         <p>Ubicación <%=lib.getUbicacion().getNombreUbicacion()%></p>
                                         <ul class="menu product-options">
-                                            <li><a id="" type="submit" name="" value="<%=lib.getIdLibro()%>" class="button">Agregar al carrito</a></li>
+                                            <li><button class="button" id="AdicionarLista" name="Listar" value="AdicionarLista">Agregar al carrito</button></li>
                                         </ul>
-
                                     </div>
                                     <div class="clearfix"></div>
                                     <%}%>
@@ -190,7 +189,8 @@
                         <div class="widget">
                             <h2>Categorias</h2>
 
-                            <select class="menu vertical" id = "idCategoria" name="categoria" onchange="$('#action').val('Consultar'); $('#VentaForm').submit();">
+                            <select class="menu vertical" id = "idCategoria" name="categoria" onchange="$('#action').val('Consultar');
+                                    $('#VentaForm').submit();">
                                 <option value="0" disabled selected="true">Seleccione</option>
                                 <%for (Categoria cat : listaCategorias) {%>
                                 <option value=<%=cat.getIdCategoria()%>><%=cat.getDescripcion()%></option>
