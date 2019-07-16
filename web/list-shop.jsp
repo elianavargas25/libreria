@@ -151,9 +151,9 @@
                                     <div class="single-product medium-4 small-12 columns">
                                         <div class="product-img"><%=lib.getIdLibro()%></div>                                
                                     </div>
-
                                     <div class="product-info medium-8 small-12 columns">
                                         <h6><a><%=lib.getNombreLibro()%></a></h6>
+                                        <input name="idLibro" value="<%=lib.getIdLibro()%>">
                                         <div class="price">
                                             <span class="normal">Precio $<%=lib.getValor()%></span>
                                             <div class="clearfix"></div>
@@ -162,8 +162,8 @@
                                         <p>Autor <%=lib.getAutor().getAutor().getNombreAutor()%></p>
                                         <p>Ubicación <%=lib.getUbicacion().getNombreUbicacion()%></p>
                                         <ul class="menu product-options">
-                                            <li><input type="submit" class="button alt"  id="lista" name="lista" onchange="$('#action').val('Agregar Lista');
-                                    $('#VentaForm').submit();">Agregar lista</li>
+                                            <li><input type="button" class="button alt"  name="agregar" value="Agregar lista" onclick="$('#action').val('Agregar Lista');
+                                                    $('#VentaForm').submit();" ></li>
                                         </ul>
                                     </div>
                                     <div class="clearfix"></div>
