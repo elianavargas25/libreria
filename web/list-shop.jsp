@@ -162,8 +162,8 @@
                                         <p>Autor <%=lib.getAutor().getAutor().getNombreAutor()%></p>
                                         <p>Ubicación <%=lib.getUbicacion().getNombreUbicacion()%></p>
                                         <ul class="menu product-options">
-                                            <li><input type="submit" class="button" id="<%=lib.getIdLibro()%>" name="idLibro" value="AdicionarLista" onchange="$('#action').val('AdicionarLista');
-                                                    $('#VentaForm').submit();"></li>
+                                            <li><input type="submit" class="button alt"  id="lista" name="lista" onchange="$('#action').val('Agregar Lista');
+                                    $('#VentaForm').submit();">Agregar lista</li>
                                         </ul>
                                     </div>
                                     <div class="clearfix"></div>

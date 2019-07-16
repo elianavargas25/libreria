@@ -45,7 +45,7 @@ public class MaestroVentas extends HttpServlet {
         request.setAttribute("modulo", null);
         request.setAttribute("datos", null);
         
-        if("AdicionarLista".equals(request.getParameter("action"))){
+        if("Agregar Lista".equals(request.getParameter("action"))){
             String idLibro = request.getParameter("idLibro");
             try {
                     List<Libro> listaLibros = manager.listarLibros(idLibro);
