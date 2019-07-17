@@ -9,10 +9,11 @@
 <%
     Manager manager = new Manager();
     Libro libro = new  Libro();
-      List<Libro> listaLibros = request.getAttribute("listaLibros") != null ? (List<Libro>) request.getAttribute("listaLibros") : new ArrayList<Libro>();
-    if (session.getAttribute("listaLibrosByCategoria") != null || session.getAttribute("listaLibrosByCategoria") != "") {
+      List<Libro> listaLibrosByCategoria = request.getAttribute("listaLibrosByCategoria") != null ? (List<Libro>) request.getAttribute("listaLibrosByCategoria") : new ArrayList<Libro>();
+    
+      if (session.getAttribute("listaLibrosByCategoria") != null || session.getAttribute("listaLibrosByCategoria") != "") {
         List<Libro> listaLibro = (ArrayList<Libro>) session.getAttribute("listaLibrosByCategoria");
-         listaLibros = listaLibro;
+         listaLibrosByCategoria = listaLibro;
     }
     
 
@@ -129,6 +130,7 @@
         <form name="ventaLibros" method="Post" id="VentaForm"
               action="./MaestroVentas" autocomplete="off" class="bod">
             <input type="hidden" name="action" id="action"> 
+            <input type="hidden" name="idLibro" id="idLibro">
             <div class="content-area">
                 <div class="row">
                     <div class="medium-9 medium-push-3 small-12 columns">
@@ -153,14 +155,14 @@
 
                             <div class="medium-12 small-12 columns">
                                 <div class="single-product-wrap">
-                                    <%if (listaLibros !=null){%>
-                                    <%for (Libro lib : listaLibros) {%>
+                                    <%if (listaLibrosByCategoria !=null){%>
+                                    <%for (Libro lib : listaLibrosByCategoria) {%>
                                     <div class="single-product medium-4 small-12 columns">
                                         <div class="product-img"><img src="\images\libro.jpg" name="idLibro" value="<%=lib.getIdLibro()%>"/></div>                                
                                     </div>
                                     <div class="product-info medium-8 small-12 columns">
                                         <h6><a><%=lib.getNombreLibro()%></a></h6>
-                                        <input name="idLibro" value="<%=lib.getIdLibro()%>">
+                                        
                                         <div class="price">
                                             <span class="normal">Precio $<%=lib.getValor()%></span>
                                             <div class="clearfix"></div>
@@ -169,7 +171,7 @@
                                         <p>Autor <%=lib.getAutor().getAutor().getNombreAutor()%></p>
                                         <p>Ubicación <%=lib.getUbicacion().getNombreUbicacion()%></p>
                                         <ul class="menu product-options">
-                                            <li><input type="button" class="button alt"  name="agregar" value="Agregar lista" onclick="$('#action').val('Agregar Lista');
+                                            <li><input type="button" class="button alt"  name="agregar" value="Agregar lista" onclick="$('#idLibro').val('<%=lib.getIdLibro()%>'); $('#action').val('Agregar Lista');
                                                     $('#VentaForm').submit();" ></li>
                                         </ul>
                                     </div>
