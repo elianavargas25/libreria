@@ -48,9 +48,9 @@ public class MaestroVentas extends HttpServlet {
         if("Agregar Lista".equals(request.getParameter("action"))){
             String idLibro = request.getParameter("idLibro");
             try {
-                    List<Libro> listaLibros = manager.listarLibros(idLibro);
+                    List<Libro> listaLibros = manager.getLibros(idLibro);
                     request.setAttribute("listaLibros", listaLibros);
-                    request.getSession(true).setAttribute("listaLibrosByCategoria", listaLibros);
+                    request.getSession(true).setAttribute("listaLibros", listaLibros);
                 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -63,7 +63,7 @@ public class MaestroVentas extends HttpServlet {
             try {
                     List<Libro> listaLibros = manager.listarLibros(categoria);
                     request.setAttribute("listaLibros", listaLibros);
-                    request.getSession(true).setAttribute("listaLibros", listaLibros);
+                    request.getSession(true).setAttribute("listaLibrosByCategoria", listaLibros);
                 
             } catch (Exception e) {
                 e.printStackTrace();

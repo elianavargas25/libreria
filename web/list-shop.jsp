@@ -8,7 +8,13 @@
 <!doctype html>
 <%
     Manager manager = new Manager();
-    List<Libro> listaLibros = request.getAttribute("listaLibros") != null ? (List<Libro>) request.getAttribute("listaLibros") : new ArrayList<Libro>();
+    Libro libro = new  Libro();
+      List<Libro> listaLibros = request.getAttribute("listaLibros") != null ? (List<Libro>) request.getAttribute("listaLibros") : new ArrayList<Libro>();
+    if (session.getAttribute("listaLibrosByCategoria") != null || session.getAttribute("listaLibrosByCategoria") != "") {
+        List<Libro> listaLibro = (ArrayList<Libro>) session.getAttribute("listaLibrosByCategoria");
+         listaLibros = listaLibro;
+    }
+    
 
     List<Categoria> listaCategorias = manager.listarCategorias();
     //request.setAttribute("lista", listaCategorias);
@@ -147,9 +153,10 @@
 
                             <div class="medium-12 small-12 columns">
                                 <div class="single-product-wrap">
+                                    <%if (listaLibros !=null){%>
                                     <%for (Libro lib : listaLibros) {%>
                                     <div class="single-product medium-4 small-12 columns">
-                                        <div class="product-img"><%=lib.getIdLibro()%></div>                                
+                                        <div class="product-img"><img src="\images\libro.jpg" name="idLibro" value="<%=lib.getIdLibro()%>"/></div>                                
                                     </div>
                                     <div class="product-info medium-8 small-12 columns">
                                         <h6><a><%=lib.getNombreLibro()%></a></h6>
@@ -167,6 +174,7 @@
                                         </ul>
                                     </div>
                                     <div class="clearfix"></div>
+                                    <%}%>
                                     <%}%>
                                 </div>
                             </div><!--product Ends here-->
