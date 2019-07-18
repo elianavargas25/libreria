@@ -1,4 +1,11 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="entidad.Libro"%>
+<%@page import="java.util.List"%>
 <!doctype html>
+<%
+ //List<Libro> listaLibro = session.getAttribute("listaLibros") != null ? (List<Libro>) session.getAttribute("listaLibros") : new ArrayList<>();
+ List<Libro> listaLibro = request.getAttribute("listaLibros") != null ? (List<Libro>) request.getAttribute("listaLibros") : new ArrayList<Libro>();
+%>
 <html>
 <head>
     <!--important for page-->
@@ -96,9 +103,6 @@
                             <li><a href="cart.jsp">Compras</a></li>
                           </ul>
                     </li>  
-                    
-                    <li><a href="about.html">Validar</a></li>
-                    
                   </ul>
               </div>
             </div>
@@ -117,14 +121,15 @@
                         <table class="shop_table cart responsive" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th class="product-name" colspan="3">Product</th>
-                                    <th class="product-price">Price</th>
-                                    <th class="product-quantity">Quantity</th>
+                                    <th class="product-name" colspan="3">Producto</th>
+                                    <th class="product-price">Precio</th>
+                                    <th class="product-quantity">Cantidad</th>
                                     <th class="product-subtotal">Total</th>
                                 </tr>
                             </thead>
                         
                             <tbody>
+                                <%for (Libro lib : listaLibro) {%>
                                 <tr class="cart_item">
                         
                                         <td class="product-remove">
@@ -136,58 +141,27 @@
                                         </td>
                     
                                         <td class="product-name">
-                                            <a href="#">New Fashion Rhinestone Five Petals Flowers Opal Stud Earring </a>												
+                                            <a href="#"><%=lib.getNombreLibro()%> </a>												
                                                 <div class="">
-                                                    <span class="amount">$&nbsp;140.00</span>
+                                                    <span class="amount">$&nbsp;<%=lib.getValor()%></span>
                                                  </div>
                                         </td>
                     
                                         <td class="product-price">
-                                            <span class="amount">$&nbsp;140.00</span>
+                                            <span class="amount">$&nbsp;<%=lib.getValor()%></span>
                                         </td>
                     
                                         <td class="product-quantity">
                                             <div class="quantity buttons_added">
-                                                <input type="number" step="1" min="0" max="" name="" value="1" title="Qty" class="input-text qty text" size="4">
+                                                <input type="number" step="1" min="0" max="" name="txtCantidad" value="1" title="Qty" class="input-text qty text" size="4">
                                                 </div>
                                         </td>
                     
                                         <td class="product-subtotal">
-                                            <span class="amount">$&nbsp;140.00</span>					
+                                            <span class="amount">$&nbsp;<%=lib.getValor()%></span>					
                                         </td>
                                     </tr>
-                                    
-                                 <tr class="cart_item">
-                        
-                                        <td class="product-remove">
-                                            <a href="" class="remove" title="Remove this item"><span class="fa fa-close"></span></a>				
-                                         </td>
-                    
-                                        <td class="product-thumbnail">
-                                            <a href=""><img width="114" height="130" src="images/help/j-19-114x130.png" alt=""></a>					
-                                        </td>
-                    
-                                        <td class="product-name">
-                                            <a href="#">New Fashion Rhinestone Five Petals Flowers Opal Stud Earring </a>												
-                                                <div class="">
-                                                    <span class="amount">$&nbsp;140.00</span>
-                                                 </div>
-                                        </td>
-                    
-                                        <td class="product-price">
-                                            <span class="amount">$&nbsp;140.00</span>
-                                        </td>
-                    
-                                        <td class="product-quantity">
-                                            <div class="quantity buttons_added">
-                                                <input type="number" step="1" min="0" max="" name="" value="1" title="Qty" class="input-text qty text" size="4">
-                                                </div>
-                                        </td>
-                    
-                                        <td class="product-subtotal">
-                                            <span class="amount">$&nbsp;140.00</span>					
-                                        </td>
-                                    </tr>   
+                                 <%}%>
                             </tbody>
                         
                         </table>

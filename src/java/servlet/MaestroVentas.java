@@ -59,7 +59,8 @@ public class MaestroVentas extends HttpServlet {
                      if(listaLibro!= null){
                          listaLibro.add(libro);
                      }
-                    session.setAttribute("listaLibros", listaLibro);
+                     request.getSession(true).setAttribute("listaLibros", listaLibro);
+//                    session.setAttribute("listaLibros", listaLibro);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
