@@ -80,31 +80,37 @@ public class DaoLibros {
         return libro;
     }//cierra guardar
 
-    public List<Libro> getLibros(String idLibro) {
-       List<Libro> result = new ArrayList<>();
+    public Libro getLibros(String idLibro) {
+        Libro libro = new Libro();
         try {
             PreparedStatement lista = conn.prepareStatement(SqlLibros.getLibrosByID(idLibro));
             lista.setString(1, idLibro);
             ResultSet respuesta = lista.executeQuery();
-            while (respuesta.next()) {
-                Libro paramet = new Libro();
-                paramet.setIdLibro(respuesta.getString("ID_LIBROS"));
-                paramet.setNombreLibro(respuesta.getString("NOMBRE_LIBRO"));
-                paramet.setValor(respuesta.getString("VALOR"));
-                result.add(paramet);
-            }//fin while
+            if (!respuesta.next()) {
+                System.out.println("No records found");
+                return null;
+            } else {
+                do {
+                    libro.setIdLibro(respuesta.getString("ID_LIBROS"));
+                    libro.setNombreLibro(respuesta.getString("NOMBRE_LIBRO"));
+                    libro.setValor(respuesta.getString("VALOR"));
+                    System.out.println("Busqueda exitosa...\n");
+                    return libro;
+                } while (respuesta.next());
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error Artista no registrado...\n");
+            e.getMessage();
         } finally {
             try {
             } catch (Exception e) {
-            }//fin try/catch
-        }//fin try/catch/finall
-        return result;
+            }
+        }//cierra finally
+        return libro;
     }
 
     public List<Libro> listLibrosByCategoria(String categoria) {
-       // categoria ="44";
+        // categoria ="44";
         List<Libro> result = new ArrayList<>();
         try {
             PreparedStatement lista = conn.prepareStatement(SqlLibros.getLibrosByCategoria(categoria));

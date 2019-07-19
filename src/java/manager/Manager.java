@@ -39,7 +39,7 @@ public class Manager {
         return daoLib.listLibrosByCategoria(categoria);
     }//fin buscar
     
-    public List<Libro> getLibros(String idLibros) {
+    public Libro getLibros(String idLibros) {
         return daoLib.getLibros(idLibros);
     }
 

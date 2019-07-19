@@ -8,6 +8,7 @@ package servlet;
 import entidad.Libro;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import manager.Manager;
 
 /**
@@ -22,7 +24,9 @@ import manager.Manager;
  * @author ELIANA
  */
 public class MaestroVentas extends HttpServlet {
+
     Manager manager = new Manager();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,44 +39,49 @@ public class MaestroVentas extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String mensaje = "";
         String modulo = "list-shop.jsp"; // validar con la vista
+        HttpSession session = request.getSession();
 
         //request.setAttribute("mensaje", null);
         request.setAttribute("listaLibros", null);
         request.setAttribute("listaLibrosByCategoria", null);
         request.setAttribute("modulo", null);
         request.setAttribute("datos", null);
-        
-        if("Agregar Lista".equals(request.getParameter("action"))){
+
+        if ("Agregar Lista".equals(request.getParameter("action"))) {
             String idLibro = request.getParameter("idLibro");
             try {
-                    List<Libro> listaLibros = manager.getLibros(idLibro);
-                    request.setAttribute("listaLibros", listaLibros);
-                    request.getSession(true).setAttribute("listaLibros", listaLibros);
-                
+                Libro libro = manager.getLibros(idLibro);
+                if (libro != null) {
+                    List<Libro> listaLibro = session.getAttribute("listaLibros") != null ? (List<Libro>) session.getAttribute("listaLibros") : new ArrayList<>();
+                     if(listaLibro!= null){
+                         listaLibro.add(libro);
+                     }
+                     request.getSession(true).setAttribute("listaLibros", listaLibro);
+//                    session.setAttribute("listaLibros", listaLibro);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        
         }
-        
+
         if ("Consultar".equals(request.getParameter("action"))) {
             String categoria = request.getParameter("categoria");
             try {
-                    List<Libro> listaLibros = manager.listarLibros(categoria);
-                    request.setAttribute("listaLibros", listaLibros);
-                    request.getSession(true).setAttribute("listaLibrosByCategoria", listaLibros);
-                
+                List<Libro> listaLibros = manager.listarLibros(categoria);
+                request.setAttribute("listaLibrosByCategoria", listaLibros);
+                request.getSession(true).setAttribute("listaLibrosByCategoria", listaLibros);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } //cierra buscar
-        
+
         request.setAttribute("mensaje", mensaje);
         request.getRequestDispatcher(modulo).forward(request, response);
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
