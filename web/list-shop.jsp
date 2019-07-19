@@ -26,7 +26,7 @@
         <!--important for page-->
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Home one | Webful Accessories</title>
+        <title>Librería | Orelma</title>
 
         <meta name="author" content="">
         <meta name="keywords" content="">
@@ -158,7 +158,7 @@
                                     <%if (listaLibrosByCategoria !=null){%>
                                     <%for (Libro lib : listaLibrosByCategoria) {%>
                                     <div class="single-product medium-4 small-12 columns">
-                                        <div class="product-img"><img src="\images\libro.jpg" name="idLibro" value="<%=lib.getIdLibro()%>"/></div>                                
+                                        <div class="product-img"><img src="images/libro.jpg" name="idLibro" value="<%=lib.getIdLibro()%>"/></div>                                
                                     </div>
                                     <div class="product-info medium-8 small-12 columns">
                                         <h6><a><%=lib.getNombreLibro()%></a></h6>
