@@ -5,10 +5,10 @@
 <%
     //List<Libro> listaLibro = session.getAttribute("listaLibros") != null ? (List<Libro>) session.getAttribute("listaLibros") : new ArrayList<>();
     List<Libro> listaLibro = request.getAttribute("listaLibros") != null ? (List<Libro>) request.getAttribute("listaLibros") : new ArrayList<Libro>();
-    
+
     if (session.getAttribute("listaLibros") != null || session.getAttribute("listaLibros") != "") {
         List<Libro> listaLibros = (ArrayList<Libro>) session.getAttribute("listaLibros");
-         listaLibro = listaLibros;
+        listaLibro = listaLibros;
     }
 %>
 <html>
@@ -156,17 +156,17 @@
                                             </td>
 
                                             <td class="product-price">
-                                                <span class="amount">$&nbsp;<%=lib.getValor()%></span>
+                                                <span id="precio" name="txtPrecio" class="amount" value="<%=lib.getValor()%>" onchange="multiplicar();">$&nbsp;<%=lib.getValor()%></span>
                                             </td>
 
                                             <td class="product-quantity">
                                                 <div class="quantity buttons_added">
-                                                    <input type="number" step="1" min="0" max="" name="txtCantidad" value="1" title="Qty" class="input-text qty text" size="4">
+                                                    <input type="number" step="1" min="0" max="" id="cantidad" name="txtCantidad" value="1" title="Qty" class="input-text qty text" size="4" onchange="multiplicar();">
                                                 </div>
                                             </td>
 
                                             <td class="product-subtotal">
-                                                <span class="amount">$&nbsp;<%=lib.getValor()%></span>					
+                                                <input id="valorTotal" name="txtValorTotal" class="amount" > <!-- $&nbsp;--> </span>					
                                             </td>
                                         </tr>
                                         <%}%>
@@ -185,12 +185,7 @@
 
                                         <tbody><tr class="cart-subtotal">
                                                 <th>Subtotal</th>
-                                                <td data-title="Subtotal"><span class="amount">$&nbsp;140.00</span></td>
-                                            </tr>
-
-                                            <tr class="order-total">
-                                                <th>Total</th>
-                                                <td data-title="Total"><strong><span class="amount">$&nbsp;240.00</span></strong> </td>
+                                                <td name="txtTotal" data-title="Subtotal"><span class="amount">$&nbsp;140.00</span></td>
                                             </tr>
                                         </tbody></table>
                                 </div>
@@ -219,6 +214,7 @@
         <script src="js/swiper.min.js"></script>
         <!-- Webful JS -->
         <script src="js/webful.js"></script>
+        <script src="js/calcularValor.js"></script>
 
     </body>
 </html>

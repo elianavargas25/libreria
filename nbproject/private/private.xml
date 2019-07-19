@@ -3,13 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/eliana.vargas/Desktop/LIBRERIA/libreria/web/checkout.html</file>
-            <file>file:/C:/Users/eliana.vargas/Desktop/LIBRERIA/libreria/src/java/manager/Manager.java</file>
-            <file>file:/C:/Users/eliana.vargas/Desktop/LIBRERIA/libreria/web/list-shop.jsp</file>
-            <file>file:/C:/Users/eliana.vargas/Desktop/LIBRERIA/libreria/src/java/persistencia/DaoLibros.java</file>
-            <file>file:/C:/Users/eliana.vargas/Desktop/LIBRERIA/libreria/src/java/servlet/MaestroVentas.java</file>
-            <file>file:/C:/Users/eliana.vargas/Desktop/LIBRERIA/libreria/src/java/entidad/Libro.java</file>
-            <file>file:/C:/Users/eliana.vargas/Desktop/LIBRERIA/libreria/src/java/Sql/SqlLibros.java</file>
+            <file>file:/C:/Users/USUARIO/Desktop/BIBLIOTECA/libreria/src/java/manager/Manager.java</file>
+            <file>file:/C:/Users/USUARIO/Desktop/BIBLIOTECA/libreria/web/checkout.html</file>
+            <file>file:/C:/Users/USUARIO/Desktop/BIBLIOTECA/libreria/src/java/servlet/MaestroVentas.java</file>
+            <file>file:/C:/Users/USUARIO/Desktop/BIBLIOTECA/libreria/web/js/calcularValor.js</file>
+            <file>file:/C:/Users/USUARIO/Desktop/BIBLIOTECA/libreria/web/cart.jsp</file>
+            <file>file:/C:/Users/USUARIO/Desktop/BIBLIOTECA/libreria/src/java/persistencia/DaoLibros.java</file>
+            <file>file:/C:/Users/USUARIO/Desktop/BIBLIOTECA/libreria/web/list-shop.jsp</file>
         </group>
     </open-files>
 </project-private>
