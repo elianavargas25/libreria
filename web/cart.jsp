@@ -16,7 +16,7 @@
         <!--important for page-->
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Home one | Webful Accessories</title>
+        <title>Librería | Orelma</title>
 
         <meta name="author" content="">
         <meta name="keywords" content="">
@@ -55,39 +55,8 @@
                         <img src="images/libreria.jpg"  class="logo" />
                     </a>
                 </div>
-
-                <div class="medium-4 small-12 columns cart-option">
-                    <a data-toggle="cart-container" class="float-right"><span class="info">2 Item(s) - $240.00</span>  <i class="fa fa-shopping-cart"></i></a>
-                    <div class="clearfix"></div>
-                    <div class="dropdown-pane bottom right" id="cart-container" data-dropdown data-hover="true" data-hover-pane="true">
-                        <h5>Your Cart Detail</h5>
-                        <table border="1px">
-                            <tr>
-                                <td><img src="images/help/product4.jpg" border="1px" width="50px" height="50px" /></td>
-                                <td>Beautiful Rhinestone Pearl Earrings <br>
-                                    2x $ 140
-                                </td>
-                                <td>280</td>
-                            </tr>
-                            <tr>
-                                <td><img src="images/help/product4.jpg" border="1px" width="50px" height="50px" /></td>
-                                <td>Beautiful Rhinestone Pearl Earrings <br>
-                                    2x $ 140
-                                </td>
-                                <td>400</td>
-                            </tr>
-                        </table>
-                        <hr>
-                        <center><strong>Subtotal: $ 240 </strong></center>
-                        <hr>	
-                        <a href="cart.html" class="button primary float-center">View Cart</a>
-                        <a href="checkout.html" class="button success float-center">Checkout</a>
-                        <div class="clearfix"></div>
-                    </div>
-
-                </div><!--cart option ends -->
             </div>
-        </div><!--header Ends here.-->
+        </div>
 
         <!----------------------Navigation Starts here---------------------->
         <div class="navigation">
@@ -137,6 +106,7 @@
                                     </thead>
 
                                     <tbody>
+                                        <%if (listaLibro != null) {%>
                                         <%for (Libro lib : listaLibro) {%>
                                         <tr class="cart_item">
 
@@ -145,30 +115,33 @@
                                             </td>
 
                                             <td class="product-thumbnail">
+                                                <input type="hidden" id="idLibro" name="txtIdlibro" value="<%=lib.getIdLibro()%>">
                                                 <a href=""><img width="114" height="130" src="images/libro.jpg" alt=""></a>					
                                             </td>
 
                                             <td class="product-name">
-                                                <a href="#"><%=lib.getNombreLibro()%> </a>												
+                                                <a><%=lib.getNombreLibro()%> </a>												
                                                 <div class="">
                                                     <span class="amount">$&nbsp;<%=lib.getValor()%></span>
                                                 </div>
                                             </td>
 
                                             <td class="product-price">
-                                                <span id="precio" name="txtPrecio" class="amount" value="<%=lib.getValor()%>" onchange="multiplicar();">$&nbsp;<%=lib.getValor()%></span>
+                                                <input type="hidden" id="precio_<%=lib.getIdLibro()%>" name="txtPrecio" value="<%=lib.getValor()%>">
+                                                <span class="amount">$&nbsp;<%=lib.getValor()%></span>
                                             </td>
 
                                             <td class="product-quantity">
                                                 <div class="quantity buttons_added">
-                                                    <input type="number" step="1" min="0" max="" id="cantidad" name="txtCantidad" value="1" title="Qty" class="input-text qty text" size="4" onchange="multiplicar();">
+                                                    <input type="number" step="1" min="0" max="" id="cantidad_<%=lib.getIdLibro()%>" name="txtCantidad" value="" title="Qty" class="input-text qty text" size="4" onchange="multiplicar(<%=lib.getIdLibro()%>);">
                                                 </div>
                                             </td>
 
                                             <td class="product-subtotal">
-                                                <input id="valorTotal" name="txtValorTotal" class="amount" > <!-- $&nbsp;--> </span>					
+                                                <input id="valorTotal_<%=lib.getIdLibro()%>" name="txtValorTotal" class="amount" readonly="readonly"> <!-- $&nbsp;--> </span>					
                                             </td>
                                         </tr>
+                                        <%}%>
                                         <%}%>
                                     </tbody>
 
@@ -184,14 +157,16 @@
                                     <table cellspacing="0" class="shop_table shop_table_responsive">
 
                                         <tbody><tr class="cart-subtotal">
-                                                <th>Subtotal</th>
-                                                <td name="txtTotal" data-title="Subtotal"><span class="amount">$&nbsp;140.00</span></td>
-                                            </tr>
+                                                <th>Total Compra</th>
+                                        <input type="hidden" name="txtTotal">
+                                        <td data-title="Total"><span id="valorTotal" name="txtTotal" class="amount"></span></td>
+                                        </tr>
                                         </tbody></table>
                                 </div>
 
 
-                                <input type="submit" class="checkout-button secondary expand button" name="proceed" value="Comprar">
+                                <input type="button" class="button alt"  name="guardar" value="Comprar" onclick="$('#action').val('Guardar');
+                                        $('#DetalleForm').submit();" >
 
 
 
@@ -202,6 +177,7 @@
                 </div>     
             </div>
         </div>
+
 
         <!----------------Footer Ends here---------------->
         <a href="# top" id="top" class="animated fadeInUp start-anim"><i class="fa fa-angle-up"></i></a>

@@ -7,6 +7,7 @@ package servlet;
 
 import entidad.Cliente;
 import entidad.Ventas;
+import entidad.VentasLibros;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
@@ -19,12 +20,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import manager.Manager;
 
 /**
  *
  * @author eliana.vargas
  */
 public class MaestroDetalle extends HttpServlet {
+
+    Manager manager = new Manager();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,39 +42,46 @@ public class MaestroDetalle extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
-           Ventas venta = new Ventas();
-        venta.setCliente(new Cliente(request.getParameter("txtNroDoc")));
-        String fecha = request.getParameter("txtFechaVenta");
-        DateFormat format = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
-        Date FechaVenta = format.parse(fecha);
-        venta.setFechaVenta(FechaVenta);
-        venta.setTotal(request.getParameter("txtTotal"));
+        Ventas venta = new Ventas();
+
+        Date fecha = new Date();
+
+        String idLibro[] = request.getParameterValues("txtIdlibro");
+        String cantidad[] = request.getParameterValues("txtCantidad");
+        String total[] = request.getParameterValues("txtValorTotal");
+
         //venta.getListVentas().add(request.)
-        venta.setCliente(new Cliente(request.getParameter("txtprimernombre")));
-        
-        
         String mensaje = "";
-        String modulo = "list-shop.jsp"; // validar con la vista
+        String modulo = "cart.jsp"; // validar con la vista
 
         //request.setAttribute("mensaje", null);
         request.setAttribute("modulo", null);
         request.setAttribute("datos", null);
-        
+
         if ("Guardar".equals(request.getParameter("action"))) {
-           
-//                    try {
-//                        venta.setCliente(cliente);
-//                        venta.setIdEmpresa(idEmpresa);
-//                        venta.setReproduccion(reprod);
-//                        
-//                        //se guarda los datos en la tabla
-//                        manager.registrarVentas(venta);
-//                        mensaje = "El informe de las ventas se registró correctamente";
-//                    } catch (Exception e2) {
-//                        mensaje = "Error en el registro de informe de ventas, favor verificar";
-//                        limpiar();
-//                    }
-                }//fin guardar
+
+            try {
+                venta.getCliente().setNroDocumento("1000540069");
+                venta.setFechaVenta(fecha);
+                venta.setTotal(request.getParameter("txtTotal"));
+                for (int i = 0; i < idLibro.length; i++) {
+                    VentasLibros ventaLibro = new VentasLibros();
+                    ventaLibro.getLibros().setIdLibro(idLibro[i]);
+                    ventaLibro.setCantidad(cantidad[i]);
+                    ventaLibro.setValor(total[i]);
+                    venta.getListVentas().add(ventaLibro);
+                }
+
+                //se guarda los datos en la tabla
+                manager.registrarVentas(venta);
+                mensaje = "El informe de las ventas se registró correctamente";
+            } catch (Exception e2) {
+                mensaje = "Error en el registro de informe de ventas, favor verificar";
+            }
+        }//fin guardar
+        
+        request.setAttribute("mensaje", mensaje);
+        request.getRequestDispatcher(modulo).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

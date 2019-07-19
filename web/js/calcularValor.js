@@ -4,10 +4,12 @@
  * and open the template in the editor.
  */
 
-    function multiplicar(){
-      precio = document.getElementById("precio").value;
-      cantidad = document.getElementById("cantidad").value;
-      total = precio*cantidad;
-      document.getElementById("valorTotal").value = total;
-    }
+function multiplicar(idLibro) {
+     $('#valorTotal_' + idLibro).val(Number($('#precio_' + idLibro).val())*Number($('#cantidad_' + idLibro).val())) ;
+     var sum = 0; 
+     $("input[name$='txtValorTotal']").each(function() {
+        sum += Number($(this).val()); 
+    });
+    $('#valorTotal').html(sum);
+}
 
