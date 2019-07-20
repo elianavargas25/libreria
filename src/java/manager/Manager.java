@@ -52,11 +52,13 @@ public class Manager {
             listVenta.setVentas(venta);
             daoVenLib.saveVentas(listVenta);
         }
-        Conexion.close(conn);
+//        Conexion.close(conn);
         return venta;
     }
     
     public List<Categoria> listarCategorias() {
+        Connection conn = Conexion.getInstance();
+        daoCat = new  DaoCategorias(conn);
         return daoCat.listCategoria();
     }//fin public lista
 }

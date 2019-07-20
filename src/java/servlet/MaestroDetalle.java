@@ -54,16 +54,17 @@ public class MaestroDetalle extends HttpServlet {
         String mensaje = "";
         String modulo = "cart.jsp"; // validar con la vista
 
-        //request.setAttribute("mensaje", null);
+        request.setAttribute("mensaje", null);
+        request.setAttribute("listaLibros", null);
         request.setAttribute("modulo", null);
         request.setAttribute("datos", null);
 
         if ("Guardar".equals(request.getParameter("action"))) {
 
             try {
-                venta.getCliente().setNroDocumento("1000540069");
+                venta.getCliente().setNroDocumento("1006765667");
                 venta.setFechaVenta(fecha);
-                venta.setTotal(request.getParameter("txtTotal"));
+                venta.setTotal("0");
                 for (int i = 0; i < idLibro.length; i++) {
                     VentasLibros ventaLibro = new VentasLibros();
                     ventaLibro.getLibros().setIdLibro(idLibro[i]);
@@ -74,9 +75,10 @@ public class MaestroDetalle extends HttpServlet {
 
                 //se guarda los datos en la tabla
                 manager.registrarVentas(venta);
-                mensaje = "El informe de las ventas se registró correctamente";
+                mensaje = "La información se almacenó correctamente";
+                request.getSession(true).setAttribute("listaLibros", null);
             } catch (Exception e2) {
-                mensaje = "Error en el registro de informe de ventas, favor verificar";
+                mensaje = "Error al almacenar la información";
             }
         }//fin guardar
         

@@ -18,7 +18,8 @@
     
 
     List<Categoria> listaCategorias = manager.listarCategorias();
-    //request.setAttribute("lista", listaCategorias);
+    String mensaje = request.getAttribute("mensaje") != null
+            ? (String) request.getAttribute("mensaje") : null;
 %>
 
 <html>
@@ -155,6 +156,7 @@
 
                             <div class="medium-12 small-12 columns">
                                 <div class="single-product-wrap">
+                                    <div><center>  <h3><%=mensaje != null ? mensaje : ""%></h3></center></div>
                                     <%if (listaLibrosByCategoria !=null){%>
                                     <%for (Libro lib : listaLibrosByCategoria) {%>
                                     <div class="single-product medium-4 small-12 columns">

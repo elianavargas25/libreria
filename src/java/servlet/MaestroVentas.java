@@ -44,7 +44,7 @@ public class MaestroVentas extends HttpServlet {
         String modulo = "list-shop.jsp"; // validar con la vista
         HttpSession session = request.getSession();
 
-        //request.setAttribute("mensaje", null);
+        request.setAttribute("mensaje", null);
         request.setAttribute("listaLibros", null);
         request.setAttribute("listaLibrosByCategoria", null);
         request.setAttribute("modulo", null);
@@ -56,10 +56,10 @@ public class MaestroVentas extends HttpServlet {
                 Libro libro = manager.getLibros(idLibro);
                 if (libro != null) {
                     List<Libro> listaLibro = session.getAttribute("listaLibros") != null ? (List<Libro>) session.getAttribute("listaLibros") : new ArrayList<>();
-                     if(listaLibro!= null){
-                         listaLibro.add(libro);
-                     }
-                     request.getSession(true).setAttribute("listaLibros", listaLibro);
+                    if (listaLibro != null) {
+                        listaLibro.add(libro);
+                    }
+                    request.getSession(true).setAttribute("listaLibros", listaLibro);
 //                    session.setAttribute("listaLibros", listaLibro);
                 }
             } catch (Exception e) {
@@ -71,8 +71,13 @@ public class MaestroVentas extends HttpServlet {
             String categoria = request.getParameter("categoria");
             try {
                 List<Libro> listaLibros = manager.listarLibros(categoria);
-                request.setAttribute("listaLibrosByCategoria", listaLibros);
-                request.getSession(true).setAttribute("listaLibrosByCategoria", listaLibros);
+                if (!listaLibros.isEmpty()) {
+                    request.setAttribute("listaLibrosByCategoria", listaLibros);
+                    request.getSession(true).setAttribute("listaLibrosByCategoria", listaLibros);
+                }else{
+                    mensaje = "No se encontraron libros";
+                    request.getSession(true).setAttribute("listaLibrosByCategoria", null);
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();

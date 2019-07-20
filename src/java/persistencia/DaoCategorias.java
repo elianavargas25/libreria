@@ -22,6 +22,16 @@ import utilidades.Conexion;
  */
 public class DaoCategorias {
 
+    private Connection conn;
+
+    public DaoCategorias() {
+        conn = Conexion.getInstance();
+    }
+
+    public DaoCategorias(Connection conn) {
+        this.conn = conn;
+    }
+
     public List<Categoria> listCategoria() {
         List<Categoria> result = new ArrayList<>();
         Connection conn = Conexion.getInstance();

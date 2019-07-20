@@ -11,7 +11,11 @@ package Sql;
  */
 public class SqlVentas {
     public static String insert() {
-        return "INSERT INTO music.empresa (`ID_TIPO_DOCUMENTO`, `NRO_DOCUMENTO`, `NOMBRE`, `PAGO_OPERACION`, `ID_ESTADO`) "
-                + "VALUES (?,?,?,?,?)";
+        return "INSERT INTO US_BIBLIOTECA.VENTAS (ID_VENTA,NRO_DOCUMENTO,FECHA_VENTA,TOTAL) VALUES (?,?,TO_DATE(?, 'DD-MM-YYYY HH24:MI:SS'),?)";
     }
+    
+    public static String insertVenta() {
+        return "INSERT INTO US_BIBLIOTECA.VENTA_LIBROS (ID_VENTAS, ID_LIBROS, CANTIDAD, VALOR) VALUES (?,?,?,?)";
+    }
+    
 }

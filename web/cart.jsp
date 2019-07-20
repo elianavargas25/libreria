@@ -10,6 +10,8 @@
         List<Libro> listaLibros = (ArrayList<Libro>) session.getAttribute("listaLibros");
         listaLibro = listaLibros;
     }
+    String mensaje = request.getAttribute("mensaje") != null
+            ? (String) request.getAttribute("mensaje") : null;
 %>
 <html>
     <head>
@@ -88,6 +90,7 @@
             <div class="row">
                 <div class="medium-12 columns">
                     <h1>Detalle Compra</h1>
+                    <div><center>  <h3><%=mensaje != null ? mensaje : ""%></h3></center></div>
 
                     <form name="detalleCompra" method="post" id="DetalleForm"
                           action="./MaestroDetalle" autocomplete="off" class="bod">

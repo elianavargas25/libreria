@@ -32,7 +32,7 @@ public class DaoVentasLibros {
     public VentasLibros saveVentas(VentasLibros ventaLibros) {//validar Conexion
         String mensaje = "";
         try {
-            PreparedStatement vent = conn.prepareStatement(SqlVentas.insert());
+            PreparedStatement vent = conn.prepareStatement(SqlVentas.insertVenta());
 
             int index = 1;
 

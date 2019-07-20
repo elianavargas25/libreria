@@ -44,6 +44,9 @@ public class VentasLibros {
     }
 
     public Libro getLibros() {
+        if(libros==null){
+            libros = new Libro();
+        }
         return libros;
     }
 
